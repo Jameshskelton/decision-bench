@@ -1,0 +1,16 @@
+{
+  "system": "jev",
+  "recorded_at": "2026-11-13T16:25:44.783171+00:00",
+  "schema": "2026-11-13.1",
+  "endpoint": {
+    "kind": "systemone",
+    "url": "https://inference.do-ai.run/v1/systemone",
+    "model": "typesafe-jev-1.13.0",
+    "hosting": "serverless"
+  },
+  "runtime": "DO Serverless Inference, typesafe-jev-1.13.0",
+  "client_host": "ml-ai-ubuntu-gpu-h200x1-141gb-nyc2",
+  "gpu": "NVIDIA H200, 143771 MiB, 580.178.04",
+  "cuda": "CUDA Version: 13.0",
+  "harness_git": ""
+}

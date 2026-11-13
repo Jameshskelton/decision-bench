@@ -1,0 +1,18 @@
+{
+  "system": "d1-2b",
+  "recorded_at": "2026-11-13T17:37:16.284475+00:00",
+  "schema": "2026-11-13.1",
+  "endpoint": {
+    "kind": "systemone",
+    "url": "http://127.0.0.1:8010/v1/systemone",
+    "model": "LiquidAI/d1-2B",
+    "hosting": "self",
+    "hf_repo": "LiquidAI/d1-2B"
+  },
+  "runtime": "hf_systemone_server, transformers 5.20.2, compiled, batch 32",
+  "client_host": "ml-ai-ubuntu-gpu-h200x1-141gb-nyc2",
+  "gpu": "NVIDIA H200, 143771 MiB, 580.178.04",
+  "cuda": "CUDA Version: 13.0",
+  "harness_git": "",
+  "hf_revision": "652f920e544ea37f81e4b0ce89b81d4ed0da90b1"
+}

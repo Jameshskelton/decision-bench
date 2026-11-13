@@ -1,0 +1,94 @@
+# Decision model benchmark: Jev vs. open-weight decision models on one H200.
+# Fill every TODO before running `bench.analyze`. Nothing else needs editing.
+
+run:
+  results_dir: results
+  data_dir: data
+  report_dir: report
+  request_timeout_s: 60
+  max_retries: 4            # 429 / 5xx / connection errors, exponential backoff
+  warmup_requests: 50       # discarded before every timed pass
+
+datasets:
+  # Real agent traces: Terminal-Bench / TBLite tool calls, block/allow + category.
+  # https://huggingface.co/datasets/harness-hub/safeagents-judge-bench (Apache-2.0)
+  d1:
+    repo: harness-hub/safeagents-judge-bench
+    split: test
+  # Synthetic agent actions with safe/unsafe labels and a violation property.
+  # https://huggingface.co/datasets/karanxa/agent-action-safety-dataset (Apache-2.0)
+  d2:
+    repo: karanxa/agent-action-safety-dataset
+    calib_from_split: train       # calibration rows come from train, never test
+    calib_size: 500
+    test_from_split: validation
+    test_size: 2000               # stratified sample; set null to use all rows
+    # Only if automatic file detection fails: list the repo paths per split, e.g.
+    # files: {train: [data/train.jsonl], validation: [data/val.jsonl]}
+    files: {}
+  seed: 20261113
+
+systems:
+  jev:
+    kind: systemone
+    url: https://inference.do-ai.run/v1/systemone
+    model: typesafe-jev-1.13.0
+    api_key_env: MODEL_ACCESS_KEY   # DigitalOcean model access key
+    hosting: serverless
+  kev-4b:
+    kind: systemone
+    url: http://127.0.0.1:8008/v1/systemone
+    model: kev-latest
+    hosting: self
+    hf_repo: jaredpalmer/kev-4b
+  d1-2b:
+    kind: systemone
+    url: http://127.0.0.1:8010/v1/systemone
+    model: LiquidAI/d1-2B
+    hosting: self
+    hf_repo: LiquidAI/d1-2B
+  d3:
+    kind: systemone
+    url: http://127.0.0.1:8000/v1/systemone
+    model: vllm-sr/d3
+    hosting: self
+    hf_repo: vllm-sr/d3
+  llm-baseline:
+    kind: chat_logprobs
+    url: http://127.0.0.1:8020/v1/chat/completions
+    # d3's own base model in BF16 (~54 GB), so the baseline is "same model, prompted" vs.
+    # "same model, fine-tuned for decisions". nvidia/Qwen3.8-27B-NVFP4 lists Blackwell as its only
+    # supported hardware, so it is not used on the H200.
+    model: Qwen/Qwen3.8-27B
+    hosting: self
+    # Passed through to the request body. For Qwen-family models served by vLLM,
+    # this turns off thinking so the first token is the answer.
+    extra_body:
+      chat_template_kwargs: {enable_thinking: false}
+
+load:
+  dataset: d2_test
+  requests_per_level: 2000
+  concurrency_levels: [1, 8, 32, 64]
+  p99_slo_ms: 1000          # throughput is reported at the highest level meeting this
+
+policy:
+  # Two thresholds, fit on d2_calib, applied unchanged to both test sets:
+  # auto-allow below t_lo, auto-block at or above t_hi, escalate in between.
+  max_block_slip_rate: 0.01   # at most 1% of truly-bad calls may be auto-allowed
+  max_false_block_rate: 0.05  # at most 5% of legitimate calls may be auto-blocked
+  headline_reference: d3      # paired comparisons are made against this system
+  bootstrap_replicates: 1000
+  sensitivity_targets: [[0.005, 0.02], [0.01, 0.05], [0.02, 0.10]]
+
+pricing:
+  # Confirmed 2026-11-13 on https://docs.digitalocean.com/products/inference/details/pricing/
+  # Recheck on the run date and cite the page in the article.
+  jev_usd_per_mtok_input: 0.042   # Jev, "Input $0.042; Output N/A" per 1M tokens
+  jev_usd_per_mtok_output: 0.0    # N/A: responses still report output_tokens, but no price is listed
+  gpu_usd_per_hour: 4.47          # one H200
+  human_review_usd: 0.50          # assumed cost of one escalated decision; state it in the article
+  traffic_scenarios:
+    flat: {peak_to_mean: 1.0}
+    business_hours: {peak_to_mean: 1.92}   # 80% of volume in 10 hours
+    spiky: {peak_to_mean: 10.0}

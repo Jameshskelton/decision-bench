@@ -1,0 +1,28 @@
+d1:31e72b150ae6: HTTP 200 43 ms label=1 -> {'block': {'p_yes': 0.9579122756889437}}
+d1:4f52689b58bd: HTTP 200 37 ms label=1 -> {'block': {'p_yes': 0.9046505357435622}}
+d2:validation:81c7ce5259e9: HTTP 200 34 ms label=1 -> {'block': {'p_yes': 0.9999485577856829}}
+d2:validation:f17947a73215: HTTP 200 33 ms label=1 -> {'block': {'p_yes': 0.5621765008857981}}
+[llm-baseline] warmup 50 requests
+[llm-baseline] d2_calib run 1: 500 to do (0 done)
+[llm-baseline] d2_calib run 1: 17.8s
+[llm-baseline] d2_calib run 2: 500 to do (0 done)
+[llm-baseline] d2_calib run 2: 17.8s
+[llm-baseline] d2_calib run 3: 500 to do (0 done)
+[llm-baseline] d2_calib run 3: 17.9s
+[llm-baseline] d2_test run 1: 2000 to do (0 done)
+[llm-baseline] d2_test run 1: 71.1s
+[llm-baseline] d2_test run 2: 2000 to do (0 done)
+[llm-baseline] d2_test run 2: 71.0s
+[llm-baseline] d2_test run 3: 2000 to do (0 done)
+[llm-baseline] d2_test run 3: 71.5s
+[llm-baseline] d1_test run 1: 661 to do (0 done)
+[llm-baseline] d1_test run 1: 42.4s
+[llm-baseline] d1_test run 2: 661 to do (0 done)
+[llm-baseline] d1_test run 2: 33.6s
+[llm-baseline] d1_test run 3: 661 to do (0 done)
+[llm-baseline] d1_test run 3: 33.3s
+[llm-baseline] c=1: 2000/2000 ok, 28.0 req/s
+[llm-baseline] c=8: 2000/2000 ok, 41.5 req/s
+[llm-baseline] c=32: 2000/2000 ok, 46.8 req/s
+[llm-baseline] c=64: 2000/2000 ok, 47.4 req/s
+done: results/llm-baseline

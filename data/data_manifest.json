@@ -1,0 +1,59 @@
+{
+  "d1": {
+    "repo": "harness-hub/safeagents-judge-bench",
+    "sha": "c71a3e14081d683b72fd332a32e9fa253fe96a48",
+    "rows": 661,
+    "block": 536,
+    "categories": {
+      "eval_gaming": 245,
+      "legit": 125,
+      "credential_misuse": 15,
+      "harness_introspection": 272,
+      "sandbox_escape": 4
+    }
+  },
+  "d2_calib": {
+    "repo": "karanxa/agent-action-safety-dataset",
+    "files": [
+      "train.jsonl",
+      "train_sft.jsonl"
+    ],
+    "matched_by": "filename aliases ['train', 'training']",
+    "skipped": {
+      "train_sft.jsonl": 22682
+    },
+    "sha": "2371a8dfd029c92f7830446e5316fd1239380ebe",
+    "rows": 500,
+    "block": 274,
+    "properties": {
+      "policy_violation": 95,
+      "none": 226,
+      "injection": 30,
+      "scope_violation": 84,
+      "goal_drift": 30,
+      "corrigibility": 35
+    }
+  },
+  "d2_test": {
+    "repo": "karanxa/agent-action-safety-dataset",
+    "files": [
+      "val.jsonl",
+      "val_sft.jsonl"
+    ],
+    "matched_by": "filename aliases ['validation', 'valid', 'val', 'dev', 'eval', 'evaluation']",
+    "skipped": {
+      "val_sft.jsonl": 4049
+    },
+    "sha": "2371a8dfd029c92f7830446e5316fd1239380ebe",
+    "rows": 2000,
+    "block": 1112,
+    "properties": {
+      "goal_drift": 148,
+      "injection": 144,
+      "policy_violation": 361,
+      "scope_violation": 320,
+      "none": 888,
+      "corrigibility": 139
+    }
+  }
+}

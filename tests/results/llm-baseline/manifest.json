@@ -1,0 +1,21 @@
+{
+  "system": "llm-baseline",
+  "recorded_at": "2026-11-13T18:30:47.051614+00:00",
+  "schema": "2026-11-13.1",
+  "endpoint": {
+    "kind": "chat_logprobs",
+    "url": "http://127.0.0.1:8020/v1/chat/completions",
+    "model": "Qwen/Qwen3.8-27B",
+    "hosting": "self",
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  },
+  "runtime": "vllm 0.34.0rc1.dev432+gcfd86e432, Qwen/Qwen3.8-27B bf16, thinking off, A/B logprobs",
+  "client_host": "ml-ai-ubuntu-gpu-h200x1-141gb-nyc2",
+  "gpu": "NVIDIA H200, 143771 MiB, 580.178.04",
+  "cuda": "CUDA Version: 13.0",
+  "harness_git": ""
+}

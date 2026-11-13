@@ -1,0 +1,18 @@
+{
+  "system": "kev-4b",
+  "recorded_at": "2026-11-13T17:17:14.575487+00:00",
+  "schema": "2026-11-13.1",
+  "endpoint": {
+    "kind": "systemone",
+    "url": "http://127.0.0.1:8008/v1/systemone",
+    "model": "kev-latest",
+    "hosting": "self",
+    "hf_repo": "jaredpalmer/kev-4b"
+  },
+  "runtime": "kev.serve @ 2074cc4, bf16",
+  "client_host": "ml-ai-ubuntu-gpu-h200x1-141gb-nyc2",
+  "gpu": "NVIDIA H200, 143771 MiB, 580.178.04",
+  "cuda": "CUDA Version: 13.0",
+  "harness_git": "",
+  "hf_revision": "6cfce5c2fa4b4bd64026336ab649c5ca78857d52"
+}

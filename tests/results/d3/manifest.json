@@ -1,0 +1,18 @@
+{
+  "system": "d3",
+  "recorded_at": "2026-11-13T18:10:36.557361+00:00",
+  "schema": "2026-11-13.1",
+  "endpoint": {
+    "kind": "systemone",
+    "url": "http://127.0.0.1:8000/v1/systemone",
+    "model": "vllm-sr/d3",
+    "hosting": "self",
+    "hf_repo": "vllm-sr/d3"
+  },
+  "runtime": "vllm 0.34.0rc1.dev432+gcfd86e432, max-model-len 32768",
+  "client_host": "ml-ai-ubuntu-gpu-h200x1-141gb-nyc2",
+  "gpu": "NVIDIA H200, 143771 MiB, 580.178.04",
+  "cuda": "CUDA Version: 13.0",
+  "harness_git": "",
+  "hf_revision": "62f07e54c6c3a5ff5f695107377edc43e1a86ea8"
+}
